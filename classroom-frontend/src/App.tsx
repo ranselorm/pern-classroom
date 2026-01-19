@@ -30,7 +30,7 @@ import { Home } from "lucide-react";
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
+      {/* <GitHubBanner /> */}
       <RefineKbarProvider>
         <ThemeProvider>
           <DevtoolsProvider>
@@ -52,7 +52,15 @@ function App() {
               ]}
             >
               <Routes>
-                <Route path="/" element={<Dashboard />} />
+                <Route
+                  element={
+                    <Layout>
+                      <Outlet />
+                    </Layout>
+                  }
+                >
+                  <Route path="/" element={<Dashboard />} />
+                </Route>
               </Routes>
               <Toaster />
               <RefineKbar />
