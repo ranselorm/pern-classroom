@@ -25,6 +25,7 @@ import { Toaster } from "./components/refine-ui/notification/toaster";
 import { ThemeProvider } from "./components/refine-ui/theme/theme-provider";
 import "./App.css";
 import Dashboard from "./pages/dashboard";
+import { Home } from "lucide-react";
 
 function App() {
   return (
@@ -42,6 +43,13 @@ function App() {
                 warnWhenUnsavedChanges: true,
                 projectId: "S8jq1Q-xLyPNg-TEWZ1Y",
               }}
+              resources={[
+                {
+                  name: "dashboard",
+                  list: "/",
+                  meta: { label: "Home", icon: <Home /> },
+                },
+              ]}
             >
               <Routes>
                 <Route path="/" element={<Dashboard />} />
