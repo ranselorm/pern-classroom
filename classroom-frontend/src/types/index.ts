@@ -4,5 +4,5 @@ export type Subject = {
   code: string;
   description: string;
   department: string;
-  createAt: Date;
+  createAt?: Date;
 };

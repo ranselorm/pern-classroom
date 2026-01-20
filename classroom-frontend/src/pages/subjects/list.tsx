@@ -86,7 +86,14 @@ const SubjectsList = () => {
       resource: "subjects",
       pagination: { pageSize: 10, mode: "server" },
       filters: { permanent: [...departmentFilters, ...searchFilter] },
-      sorters: {},
+      sorters: {
+        initial: [
+          {
+            field: "id",
+            order: "desc",
+          },
+        ],
+      },
     },
   });
 

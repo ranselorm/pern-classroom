@@ -13,7 +13,8 @@ import routerProvider, {
   UnsavedChangesNotifier,
   DocumentTitleHandler,
 } from "@refinedev/react-router";
-import { dataProvider } from "./providers/data";
+// import { dataProvider } from "./providers/data";
+import { dataProvider } from "./providers";
 // import { Login } from "./pages/login";
 // import { Register } from "./pages/register";
 // import { ForgotPassword } from "./pages/forgot-password";
