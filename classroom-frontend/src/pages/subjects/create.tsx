@@ -1,7 +1,13 @@
+import { Breadcrumb } from "@/components/refine-ui/layout/breadcrumb";
 import React from "react";
 
 const SubjectCreate = () => {
-  return <div>SubjectCreate</div>;
+  return (
+    <div>
+      <Breadcrumb />
+      SubjectCreate
+    </div>
+  );
 };
 
 export default SubjectCreate;
