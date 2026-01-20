@@ -14,26 +14,70 @@ import { DEPARTMENTS_OPTIONS } from "@/constants";
 import { Subject } from "@/types";
 import { useTable } from "@refinedev/react-table";
 import { Search } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
+import { Badge } from "@/components/ui/badge";
 
 const SubjectsList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("all");
 
+  //filters
+  const departmentFilters =
+    selectedDepartment === "all"
+      ? []
+      : [
+          {
+            field: "deparment",
+            operator: "eq" as const,
+            value: selectedDepartment,
+          },
+        ];
+
+  const searchFilter = searchQuery
+    ? [
+        {
+          field: "name",
+          operator: "eq" as const,
+          value: searchQuery,
+        },
+      ]
+    : [];
+
   const subjectTable = useTable<Subject>({
     columns: useMemo<ColumnDef<Subject>[]>(
       () => [
         {
-          // Column for ID field
           id: "code",
           accessorKey: "code",
-          header: ({ column }) => (
-            <div className="flex items-center gap-1">
-              <span>Code</span>
-              {/* <DataTableSorter column={column} /> */}
-            </div>
+          header: () => <p className="ml-2 column-title">Code</p>,
+          cell: ({ getValue }) => <Badge>{getValue<string>()}</Badge>,
+        },
+        {
+          id: "name",
+          accessorKey: "name",
+          header: () => <p className="column-title">Name </p>,
+          cell: ({ getValue }) => <span>{getValue<string>()}</span>,
+          size: 200,
+          filterFn: "includesString",
+        },
+        {
+          id: "department",
+          accessorKey: "department",
+          header: () => <p className="column-title">Department</p>,
+          cell: ({ getValue }) => (
+            <Badge variant="secondary">{getValue<string>()}</Badge>
           ),
+          size: 150,
+        },
+        {
+          id: "description",
+          accessorKey: "description",
+          header: () => <p className="column-title">Description</p>,
+          cell: ({ getValue }) => (
+            <span className="truncate line-clamp-2">{getValue<string>()}</span>
+          ),
+          size: 300,
         },
       ],
       [],
@@ -41,7 +85,7 @@ const SubjectsList = () => {
     refineCoreProps: {
       resource: "subjects",
       pagination: { pageSize: 10, mode: "server" },
-      filters: {},
+      filters: { permanent: [...departmentFilters, ...searchFilter] },
       sorters: {},
     },
   });
