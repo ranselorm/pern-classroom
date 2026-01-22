@@ -34,3 +34,16 @@ export const subjects = pgTable("subjects", {
 export const departmentsRelations = relations(departments, ({ many }) => ({
   subjects: many(subjects),
 }));
+
+export const subjectsRelations = relations(subjects, ({ one }) => ({
+  department: one(departments, {
+    fields: [subjects.departmentId],
+    references: [departments.id],
+  }),
+}));
+
+export type Department = typeof departments.$inferSelect;
+export type NewDepartment = typeof departments.$inferInsert;
+
+export type Subject = typeof subjects.$inferSelect;
+export type NewSubject = typeof subjects.$inferInsert;
